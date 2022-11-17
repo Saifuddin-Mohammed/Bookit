@@ -1,0 +1,12 @@
+<%- include('./partials/header.ejs')%>
+    
+    <div style="padding-left:16px">
+        <h2>Notifications</h2>
+        <%if(user){%>
+            <p>Nearing Appointments here. <br> The idea is we have a feed of the user's upcoming<br>appointments and a visual calendar on the right.</p>
+        <%} else {%>
+            <p>Please login to see appointments</p>
+        <%}%>
+        
+    </div>
+    <%- include('./partials/footer.ejs')%>
