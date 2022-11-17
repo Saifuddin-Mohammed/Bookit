@@ -100,7 +100,7 @@ form{
     top: 30%;
     left: 60%;
 }
-#title,#notes, #time,#importance,#priority{
+#title,#purpose, #startTime, #endTime ,#importance,#priority, #date{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -113,7 +113,7 @@ form{
     margin: 8px 0;
     box-sizing: border-box;
     font-size: 25px;
-    text:White;
+    color:White;
     background-color: lightblue;
 }
 #cancel{

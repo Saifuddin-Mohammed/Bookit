@@ -21,11 +21,15 @@
     <img id="num" src="images/Eo_circle_blue_number-1.svg.png">
 </div>
 
-<form>
+<form action = '/new' method = 'POST'>
     <label for="title">Title: </label><br>
     <input type="text" id="title" name="title"><br>
-    <label for="time">Time: </label><br>
-    <input type="time" id="time" name="time"><br>
+    <label for="startTime">Start: </label><br>
+    <input type="time" id="startTime" name="startTime"><br>
+    <label for="endTime">End: </label><br>
+    <input type="time" id="endTime" name="endTime"><br>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date">
     <label> Priority</label><br> <select
     name="priority" id="priority">
         <option value="" selected="selected">Select priority</option>
@@ -33,10 +37,9 @@
         <option value="Medium" >Medium</option>
         <option value="Low" >Low</option>
     </select><br>
-    <label for="notes">Notes: </label><br>
-    <input type="text" id="notes" name="notes">
+    <label for="purpose">Description: </label><br>
+    <input type="text" id="purpose" name="purpose">
     <input type =submit value="Submit" id="submit">
-    <input type =submit value="Cancel" id="cancel">
 </form>
 </body>
 </html>

@@ -5,6 +5,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const newRoutes = require('./routes/newRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
+const groupRoutes = require('./routes/groupRoutes.js');
 
 //create app
 const app = express();
@@ -31,7 +32,7 @@ app.use(methodOverride('_method'));
 
 app.use(session({
     secret: 'notsecure',
-    resave:false,
+    resave: false,
     saveUninitialized: false,
     cookie:{maxAge: 60*60*1000}, //one hour
     store: new MongoStore({mongoUrl: uri})
@@ -51,6 +52,8 @@ app.get('/', (req, res)=>{
 app.use('/new', newRoutes);
 
 app.use('/user', userRoutes);
+
+app.use('/group', groupRoutes);
 /*
 app.use((req, res, next) => {
     let err = new Error('The server cannot locate ' + req.url);

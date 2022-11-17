@@ -1,0 +1,24 @@
+//groups
+Display Groups
+Users invited and accepted array
+Display invites
+
+//calanders
+give users appointments
+display appointments
+sort appointments //importance or date
+color code
+dashboard
+
+//appointments
+update app creation to include group
+
+//notifications
+all of it 
+
+//bugs
+header user undefined
+
+//optional
+improve ui for:
+    app creation
