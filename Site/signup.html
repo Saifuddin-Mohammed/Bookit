@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Page Title</title>
+<style>
+    body {
+        display: flex;
+  justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .topnav {
+        position: fixed;
+        line-height: 30px;
+      background-color:#1b65c5;
+        padding: 16px;
+        border: 5px solid darkslategray;
+        border-radius: 5px;
+        top:30%;
+        font-size: 1.15em;
+    }
+
+    input[type="text"]{
+        background-color : #d1d1d1; 
+    }
+
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+    
+    .topnav logo {
+        
+      color: #f2f2f2;
+      padding: 0px 16px;
+      text-decoration: none;
+
+    }
+
+    .logo img{
+        position: static;
+        text-align: center;
+      width: 150px;
+
+    }
+</style>
+
+</head>
+<body>
+<!-- For people who don't have JavaScript enabled-->
+<noscript>This web page requires JavaScript to be enabled on your browser.</noscript>
+
+    <!-- Taskbar Class -->
+    <h1> <div class="logo">
+        <img id="logo" alt="logo" src="version4.PNG"> </a> </div> </h1>
+    <div class="topnav">
+        <p>Enter the information below and click<br>submit to create an account.</p>
+                <hr>
+            <form action="#">
+                <p>
+                <label for="fname">First Name: </label>
+                <input type="text" id="fname" name="fname"><br>
+                </p>
+                <p>
+                <label for="lname">Last Name: </label>
+                <input type="text" id="lname" name="lname"><br>
+                </p>
+                <p>
+                <label for="uname">Username: </label>
+                <input type="text" id="uname" name="uname"><br>
+                </p>
+                <p>
+                <label for="pass">Password: </label>
+                <input type="text" id="pass" name="pass"><br>
+                </p>
+                <p>
+                <label for="email">Email: </label>
+                <input type="text" id="email" name="email"><br><br>
+                </p>
+            </form>
+            <input type =submit value="Submit" id="submit">
+            <input type =submit value="Cancel" id="cancel"></div>
+</body>
+</html>
