@@ -6,6 +6,8 @@ const MongoStore = require('connect-mongo');
 const newRoutes = require('./routes/newRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
 const groupRoutes = require('./routes/groupRoutes.js');
+const Appointment = require('./models/appointment');
+const appointment = require('./models/appointment');
 
 //create app
 const app = express();
@@ -40,13 +42,38 @@ app.use(session({
 
 //setup routing
 app.get('/', (req, res)=>{
-    if(req.session.user){
+    if(req.session.user){        
         user = true;
-        res.render('index', {user});
+        Appointment.find({$or: [{author: req.session.user}, {}]})
+        .then(appointments =>{
+            res.render('index', {user, appointments});
+        })
+        .catch()        
     } else {
+        appointments = [];
         user = false;
         res.render('index', {user});    
     }    
+});
+app.get('/:id', (req, res, next)=>{
+    let id = req.params.id;
+    if(!id.match(/^[0-9a-fA-F]{24}$/)) {
+        let err = new Error('Invalid appointment id');
+        err.status = 400;
+        return next(err);
+    }
+    Appointment.findById(id)
+    .then(appointment=>{
+        if(appointment){
+            user = req.session.user;
+            return res.render('./view', {appointment, user});
+        } else {
+            let err = new Error('Cannot find a appointment with id ' + id);
+            err.status = 404;
+            next(err);
+        }
+    })
+    .catch(err=>next(err))
 });
 
 app.use('/new', newRoutes);

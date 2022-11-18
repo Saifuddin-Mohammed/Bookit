@@ -8,6 +8,8 @@ exports.index = (req, res, next)=>{
 
 exports.new = (req, res, next)=>{
     let appointment = new Appointment(req.body);
-    console.log(appointment);
-    res.redirect('/');
+    appointment.author = req.session.user;
+    appointment.save()
+    .then(res.redirect('/'))
+    .catch(err=>next(err));
 };

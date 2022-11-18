@@ -28,9 +28,9 @@ exports.create = (req, res, next)=>{
 };
 
 exports.auth = (req, res, next)=>{
-    let email = req.body.uname;
+    let uname = req.body.uname;
     let password = req.body.password;
-    User.findOne({email: email})
+    User.findOne({userName: uname})
     .then(user=>{
         if(user){
             user.comparePassword(password)

@@ -26,3 +26,18 @@ body {
     background-color: #1b65c5;
     color: white;
   }
+
+  .High{
+    background-color: red;
+    width: 75%;
+  }
+
+  .Medium{
+    background-color: yellow;
+    width: 75%;
+  }
+
+  .Low{
+    background-color: green;
+    width: 75%;
+  }

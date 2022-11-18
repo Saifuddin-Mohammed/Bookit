@@ -1,7 +1,7 @@
 //groups
-Display Groups
-Users invited and accepted array
 Display invites
+arrayswap invited / accepted
+popup for failed invite
 
 //calanders
 give users appointments

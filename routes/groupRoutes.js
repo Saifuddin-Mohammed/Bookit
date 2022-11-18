@@ -9,4 +9,6 @@ router.get('/new', controller.new);
 
 router.post('/', controller.addGroup);
 
+router.post('/:id', controller.view);
+
 module.exports = router;

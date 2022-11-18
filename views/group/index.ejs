@@ -5,13 +5,17 @@
       <button>Create a new group</button>
   </form>
     <h1>Current Groups</h1>
-    <%if(groups.length > 0){
-      for(let i = 0; i>groups.length; i++){%>
-        <p><%=groups[i].name%></p>
-      <%}
-    } else {%>
-      <p>You are not currently in any groups</p>
-    <%}%>
+    <%if(user){%>
+      <%if(pGroups.length > 0){
+        for(let i = 0; i < pGroups.length; i++){%>
+          <p><%=pGroups[i]%></p>
+        <%}
+      } else {%>
+        <p>You are not currently in any groups</p>
+      <%}%>
+    <%} else {%>
+      <p>Please sign in to see groups</p>
+    <%}%>    
   </div>
 
 <%- include('../partials/footer.ejs')%>

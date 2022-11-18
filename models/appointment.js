@@ -8,7 +8,8 @@ const appointmentSchema = new Schema({
     date: {type: String, require: [true]},
     priority: {type: String, require: [true]},
     group: {type: String, require: [false]},
-    purpose: {type: String, require: [true]}    
+    purpose: {type: String, require: [true]},
+    author: {type: String, require: [true]}
 });
 
 module.exports = mongoose.model('Appointment', appointmentSchema);
