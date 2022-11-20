@@ -1,0 +1,30 @@
+<%- include('./partials/header.ejs')%>
+
+    <div style="padding-left:16px">
+        <div>
+            <h2 class="text">Notifications</h2>
+            <div class="dropdown" >
+                <button class="dropbtn">Sort</button>
+                <div class="dropdown-content">
+                  <a href="/date">Date</a>
+                  <a href="/priority">Priority</a>
+                </div>
+              </div>
+        </div>
+        
+        <%if(user){%>
+            <%if(appointments.length > 0){
+                for(let i = 0; i < appointments.length; i++){%>
+                    <div class="<%=appointments[i].priority%>">
+                        <a href="/apt/<%= appointments[i]._id%>"><p><%= appointments[i].title%>, <%= appointments[i].date%></p></a>
+                    </div>
+                <%}                
+            } else {%>
+                <p>No upcoming appointments</p>
+            <%}%>
+        <%} else {%>
+            <p>Please login to see appointments</p>
+        <%}%>
+        
+    </div>
+    <%- include('./partials/footer.ejs')%>

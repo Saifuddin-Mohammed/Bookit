@@ -1,0 +1,10 @@
+<div class="topnav">
+    <a class="active" href="/">Home</a>
+    <a href="/apt">Create Appointment</a>
+    <a href="/group">Edit Groups</a>
+    <%if(user){%>
+      <a href="/user/signout">Sign Out</a>
+    <%} else {%>
+      <a href="/user/login">Login</a>
+    <%}%>        
+</div>

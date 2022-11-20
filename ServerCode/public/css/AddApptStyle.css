@@ -1,0 +1,127 @@
+html, body {
+    padding:0;
+    margin:0;
+}
+.navigation {
+    overflow: hidden;
+    padding-top: 0;
+    background-color:darkslategray;
+    width: 100%;
+    background-position: center;
+}
+
+/* style the navigation links */
+.navigation a {
+    top: 500px;
+    left: 50px;
+    float: left;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 25px;
+}
+.navigation a:hover {
+    background-color: #1b65c5;
+    color: white;
+}
+
+.logo img {
+    width: 150px;
+
+}
+/* style the header of the page  */
+
+/* style the body of the page */
+body {
+
+    background-repeat: no-repeat;
+    background-size: 2262px 800px;
+    background-position: 8px 30px;
+
+}
+
+/* style the h1 element of the header */
+header h1 {
+    color: ghostwhite;
+    font-size: 40px;
+    text-align: left;
+    padding-left: 14px;
+
+}
+
+/* style the h2 element of the header */
+body h2 {
+    position: absolute;
+    bottom: 150px;
+    font-size: 50px;
+}
+
+/* style the search bar */
+#search1 {
+    position: absolute;
+    top: 11%;
+    left: 75%;
+    size: 80px;
+    width: 500px;
+    height: 20px;
+}
+
+/* style the search button */
+#searchButton {
+    position: absolute;
+    top: 11%;
+    left: 75%;
+    width: 60px;
+    height: 25px;
+    text-align: center;
+}
+body {font-family: Verdana, sans-serif;}
+
+#day{
+    width:600px;
+    position: absolute;
+    top: 28%;
+    left: 20%;
+    mix-blend-mode: darken;
+}
+#num{
+    width:450px;
+    position: absolute;
+    top: 45%;
+    left: 23%;
+    mix-blend-mode: darken
+}
+
+form{
+    font-size: 40px;
+    position:absolute;
+    top: 30%;
+    left: 60%;
+}
+#title,#purpose, #startTime, #endTime ,#importance,#priority, #date, #group{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 25px;
+}
+#submit{
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 25px;
+    color:White;
+    background-color: lightblue;
+}
+#cancel{
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 25px;
+    background-color: lightcoral;
+}
+

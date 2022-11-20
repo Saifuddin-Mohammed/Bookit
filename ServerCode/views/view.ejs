@@ -1,0 +1,17 @@
+<%- include('./partials/header.ejs')%>
+    
+    <div style="padding-left:16px">
+        <h2>Notifications</h2>
+        <%if(user){%>
+            <h1><%= appointment.title%></h1>
+            <p>Description:</p>
+            <p><%= appointment.purpose%></p>
+            <p>Time:</p>
+            <p>Starts at: <%= appointment.startTime%></p>
+            <p>Ends at: <%= appointment.endTime%></p>
+        <%} else {%>
+            <p>Please login to see appointments</p>
+        <%}%>
+        
+    </div>
+    <%- include('./partials/footer.ejs')%>

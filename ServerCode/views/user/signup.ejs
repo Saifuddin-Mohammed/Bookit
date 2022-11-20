@@ -1,0 +1,69 @@
+<%- include('../partials/header.ejs')%>
+<style> 
+    .topnas {
+        position: fixed;
+        line-height: 30px;
+        background-color:#1b65c5;
+        padding: 16px;
+        border: 5px solid darkslategray;
+        border-radius: 5px;
+        top:10%;
+        font-size: 1.15em;
+        right: 50%;
+        transform: translate(50%,50%);
+    }
+
+    input[type="text"]{
+        background-color : #d1d1d1; 
+    }
+
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+
+    
+    .topnas logo {
+      color: #f2f2f2;
+      padding: 0px 16px;
+      text-decoration: none;
+    }
+
+    .logo img{
+        position: fixed;
+        text-align: center;
+        width: 150px;
+        right: 50%;
+        transform: translate(50%,50%);
+    }
+</style>
+<h1> <div class="logo">
+    <img id="logo" alt="logo" src="/images/version4.PNG"> </a> </div> </h1>
+<div class="topnas">
+    <p>Enter the information below and click<br>submit to create an account.</p>
+            <hr>
+    <form action = '/user/signup' method = 'POST'>
+        <p>
+        <label for="firstName">First Name: </label>
+        <input type="text" id="firstName" name="firstName"><br>
+        </p>
+        <p>
+        <label for="lastName">Last Name: </label>
+        <input type="text" id="lastName" name="lastName"><br>
+        </p>
+        <p>
+        <label for="userName">Username: </label>
+        <input type="text" id="userName" name="userName"><br>
+        </p>
+        <p>
+        <label for="password">Password: </label>
+        <input type="text" id="password" name="password"><br>
+        </p>
+        <p>
+        <label for="email">Email: </label>
+        <input type="text" id="email" name="email"><br><br>
+        </p>
+    </form>
+    <input type =submit value="Submit" id="submit">
+    </div>
+    <%- include('../partials/footer.ejs')%>
