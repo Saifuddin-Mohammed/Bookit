@@ -1,22 +1,7 @@
-//groups
-Display invites
-arrayswap invited / accepted
-popup for failed invite
+//Validator Files
 
-//calanders
-give users appointments
-display appointments
-sort appointments //importance or date
-color code
-dashboard
+//Database Linking
 
+//invites
 
-//notifications
-all of it 
-
-//bugs
-header user undefined
-
-//optional
-improve ui for:
-    app creation
+//Email notifs
