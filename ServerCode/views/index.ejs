@@ -13,10 +13,10 @@
         </div>
         
         <%if(user){%>
-            <%if(appointments.length > 0){
-                for(let i = 0; i < appointments.length; i++){%>
-                    <div class="<%=appointments[i].priority%>">
-                        <a href="/apt/<%= appointments[i]._id%>"><p><%= appointments[i].title%>, <%= appointments[i].date%></p></a>
+            <%if(userObj.appointments.length > 0){
+                for(let i = 0; i < userObj.appointments.length; i++){%>
+                    <div class="<%=userObj.appointments[i].priority%>">
+                        <a href="/apt/<%= userObj.appointments[i]._id%>"><p><%= userObj.appointments[i].title%>, <%= userObj.appointments[i].date%></p></a>
                     </div>
                 <%}                
             } else {%>

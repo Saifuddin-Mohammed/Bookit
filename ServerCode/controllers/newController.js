@@ -1,30 +1,20 @@
-const newM = require('../models/new');
 const Appointment = require('../models/appointment');
 const User = require('../models/user');
 const Group = require('../models/group');
 
+//get groups to render into form
 exports.index = (req, res, next)=>{
-    if(req.session.user){
-        let user = req.session.user;
-        User.findById(user)
-        .then(user=>{
-            if(user){
-                groupIds = Array.from(user.groups);
-                Group.find().where('_id').in(groupIds)
-                .then(groups=>{
-                    res.render('./new/AddAppointment', {user, groups});
-                })
-                .catch(err=>next(err)) 
-            } else {
-                let groups = [];
-                res.render('./new/AddAppointment', {user, groups});
-            }               
-        }) 
+    let userId = req.session.user;
+    if(userId){
+        User.findById(userId).populate('groups')
+        .then(userObj=>{
+            console.log(userObj);
+            res.render('./new/AddAppointment', {userObj});
+        })
+        .catch(err=>next(err));
     } else {
-        let user = null;
-        let groups = [];
-        res.render('./new/AddAppointment', {user, groups});
-    } 
+        res.render('./new/AddAppointment');
+    }
 };
 
 exports.new = (req, res, next)=>{
@@ -51,7 +41,7 @@ exports.new = (req, res, next)=>{
     .catch(err=>next(err))
 };
 
-exports.id = (req, res, next)=>{
+exports.id = (req, res, next)=>{  
     let id = req.params.id;
     Appointment.findById(id)
     .then(appointment=>{
@@ -64,5 +54,5 @@ exports.id = (req, res, next)=>{
             next(err);
         }
     })
-    .catch(err=>next(err))
+    .catch(err=>next(err));
 };

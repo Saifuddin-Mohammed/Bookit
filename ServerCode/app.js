@@ -6,7 +6,6 @@ const MongoStore = require('connect-mongo');
 const newRoutes = require('./routes/newRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
 const groupRoutes = require('./routes/groupRoutes.js');
-const Appointment = require('./models/appointment');
 const User = require('./models/user');
 
 //create app
@@ -40,76 +39,81 @@ app.use(session({
     store: new MongoStore({mongoUrl: uri})
 }));
 
-//setup routing
-app.get('/', (req, res)=>{
-    if(req.session.user){        
-        user = true;
-        User.findById(req.session.user)
-        .then(user =>{
-            let appointmentsIds = Array.from(user.appointments);
-            Appointment.find().where("_id").in(appointmentsIds)
-            .then(appointments=>{
-                res.render('index', {user, appointments});
-            })
-            .catch()            
-        })
-        .catch()        
-    } else {
-        appointments = [];
-        user = false;
-        res.render('index', {user});    
-    }    
+app.use((req, res, next) => {
+    res.locals.user = req.session.user||null;
+    next();
 });
 
-//Get
-app.get('/date', (req, res)=>{
-    if(req.session.user){        
-        user = true;
-        Appointment.find({$or: [{author: req.session.user}, {}]}).sort({date:1})
-        .then(appointments =>{
-            res.render('index', {user, appointments});
+//setup routing
+
+//Get user index: if logged in get user appointments and pass to be rendered
+app.get('/', (req, res)=>{
+    let userId = req.session.user;
+    if(userId){
+        User.findById(userId).populate('appointments')
+        .then(userObj=>{
+            res.render('index', {userObj});
         })
-        .catch()        
+        .catch(err=>next(err));
     } else {
-        appointments = [];
-        user = false;
-        res.render('index', {user});    
-    }    
+        res.render('index'); //diplay index with no database search
+    }
+});
+
+//Get index sorted by date
+app.get('/date', (req, res)=>{
+    let userId = req.session.user;
+    if(userId){
+        User.findById(userId).populate('appointments')
+        .then(userObj=>{
+            let sorted = userObj.appointments.sort(
+                function(doc1, doc2){
+                    let date1 = new Date(doc1.date);
+                    let date2 = new Date(doc2.date);
+                    return date1-date2;
+                }
+            )
+            userObj.appointments = sorted;
+            res.render('index', {userObj});
+        })
+        .catch(err=>next(err));
+    } else {
+        res.render('index'); 
+    }
 });
 
 app.get('/priority', (req, res)=>{
-    if(req.session.user){        
-        user = true;
-        Appointment.find({$or: [{author: req.session.user}, {}]})
-        .then(query =>{
-                appointments = Array.from(query).sort(function(doc1, doc2){
-                if(doc1.priority === 'High'){
-                    val1 = 3;
-                } else if (doc1.priority === 'Medium'){
-                    val1 = 2;
-                } else if(doc1.priority === 'Low'){
-                    val1 = 1;
+    let userId = req.session.user;
+    if(userId){
+        User.findById(userId).populate('appointments')
+        .then(userObj=>{
+            let sorted = userObj.appointments.sort(
+                function(doc1, doc2){
+                    if(doc1.priority === 'High'){
+                        val1 = 3;
+                    } else if (doc1.priority === 'Medium'){
+                        val1 = 2;
+                    } else if(doc1.priority === 'Low'){
+                        val1 = 1;
+                    }    
+                    if(doc2.priority === 'High'){
+                        val2 = 3;
+                    } else if (doc2.priority === 'Medium'){
+                        val2 = 2;
+                    } else if(doc2.priority === 'Low'){
+                        val2 = 1;
+                    }
+                    return val2-val1;
                 }
-
-                if(doc2.priority === 'High'){
-                    val2 = 3;
-                } else if (doc2.priority === 'Medium'){
-                    val2 = 2;
-                } else if(doc2.priority === 'Low'){
-                    val2 = 1;
-                }
-                return val2-val1;
-            })
-            res.render('index', {user, appointments});
+            )
+            userObj.appointments = sorted;
+            res.render('index', {userObj});
         })
-        .catch()        
+        .catch(err=>next(err));
     } else {
-        appointments = [];
-        user = false;
-        res.render('index', {user});    
-    }    
+        res.render('index');  
+    }
 });
-
 
 app.use('/apt', newRoutes);
 

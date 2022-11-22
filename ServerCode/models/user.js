@@ -8,9 +8,9 @@ const userSchema = new Schema({
     userName: {type: String, required: [true, 'cannot be empty']},
     email: {type: String, required: [true, 'cannot be empty'], unique: true},
     password: {type: String, required: [true, 'cannot be empty']},
-    invites: {type: Array, required: [false]},
-    groups: {type: Array, required: [false]},
-    appointments: {type: Array, required: [false]}
+    invites: [{type: Schema.Types.ObjectId, ref:'Group'}],
+    groups: [{type: Schema.Types.ObjectId, ref:'Group'}],
+    appointments: [{type: Schema.Types.ObjectId, ref:'Appointment'}]
 });
 
 //replace plain text with hash before save

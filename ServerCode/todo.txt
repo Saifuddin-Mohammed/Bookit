@@ -5,3 +5,12 @@
 //invites
 
 //Email notifs
+
+//Add routing to view/groups/index for viewing groups
+
+//refactor appointments
+make sure saving appointments works as intended
+
+//refactor groups
+
+//check if sorting works
