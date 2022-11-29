@@ -33,8 +33,8 @@
             <label for="group">Group:</label>
             <select name="group" id="group" name="group">
                 <option value="">--Please choose an option--</option>
-                <%for(let i = 0 ; i < userObj.groups.length; i++){%>
-                    <option value="<%=userObj.groups[i]._id%>"><%=userObj.groups[i].groupName%></option>
+                <%for(let i = 0 ; i < groups.length; i++){%>
+                    <option value="<%=groups[i]._id%>"><%=groups[i].groupName%></option>
                 <%}%>
             </select>
             <label> Priority</label><br> <select
@@ -51,5 +51,8 @@
     <%} else {%>
         <p>Please login to create appointments</p>
     <%}%>
+
+
+
 </body>
 </html>

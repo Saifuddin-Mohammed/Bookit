@@ -2,14 +2,17 @@ const session = require('express-session');
 const User = require('../models/user');
 
 exports.signup = (req, res, next)=>{
-    res.render('./user/signup');    
+    user = req.session.user;
+    res.render('./user/signup', {user});    
 }
 
 exports.login = (req, res)=>{
-    res.render('./user/login');
+    user = req.session.user;
+    res.render('./user/login', {user});
 }
 
-exports.create = (req, res, next)=>{    
+exports.create = (req, res, next)=>{
+    
         let user = new User(req.body);
         user.save()
         .then(()=>{
@@ -24,7 +27,8 @@ exports.create = (req, res, next)=>{
                 res.redirect('/user/new');
             }
             next(err)
-        })   
+        })
+    
 };
 
 exports.auth = (req, res, next)=>{

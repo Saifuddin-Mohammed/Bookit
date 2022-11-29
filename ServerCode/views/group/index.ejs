@@ -6,9 +6,9 @@
   </form>
     <h1>Current Groups</h1>
     <%if(user){%>
-      <%if(userObj.groups.length > 0){
-        for(let i = 0; i < userObj.groups.length; i++){%>
-          <a href="#"><p><%=userObj.groups[i].groupName%></p></a>
+      <%if(pGroups.length > 0){
+        for(let i = 0; i < pGroups.length; i++){%>
+          <p><%=pGroups[i]%></p>
         <%}
       } else {%>
         <p>You are not currently in any groups</p>
