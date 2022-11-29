@@ -15,7 +15,7 @@ const bp = require('body-parser');
 const app = express();
 
 //app variables
-const uri = "mongodb+srv://Vulpire:Kona1281-@cluster0.rzhd7re.mongodb.net/?retryWrites=true&w=majority"
+const uri = "mongodb+srv://Depoloyment:easypass@cluster0.rzhd7re.mongodb.net/?retryWrites=true&w=majority"
 let port = 3001;
 let host = 'localhost';
 app.set('view engine', 'ejs');
