@@ -58,7 +58,7 @@ const UserProfile = ({onClick}) => {
         <FaUserAlt className="rounded-full h-24 w-24"/>
         <div>
           <p className="font-semibold text-xl dark:text-gray-200"> {user.firstName} </p>
-          {/* <p className="text-gray-500 text-sm dark:text-gray-400">  Administrator   </p> */}
+          <p className="text-gray-500 text-sm dark:text-gray-400">  {user.userName}   </p>
           <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> {user.email} </p>
         </div>
       </div>

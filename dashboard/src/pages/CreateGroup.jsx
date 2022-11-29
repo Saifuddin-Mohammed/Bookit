@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { Navbar, Footer, Sidebar} from '../components'; 
 import { useStateContext } from '../contexts/ContextProvider';
+import { useNavigate } from "react-router-dom";
 const CreateGroup = () => {
+  let navigate = useNavigate();
+  function red(){
+      navigate(`/`)
+  }
   const { currentMode, activeMenu} = useStateContext();
     let handleSubmit = (e) => {
         e.preventDefault();
@@ -17,6 +22,8 @@ const CreateGroup = () => {
         }).then(res=>{
           if(res.status !== 200){
             setMessage("There was a problem")
+          } else {
+            red()
           }
         })
       };

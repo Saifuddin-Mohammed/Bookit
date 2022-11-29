@@ -32,9 +32,14 @@ exports.newEvent = (req,res)=>{
             {multi: true}
         )
         .then(()=>{
-            event.save();
-            res.status = 200;
-            res.send();
+            //update group
+            Group.findByIdAndUpdate(event.group, {$push: {appointments: event._id}})
+            .then(()=>{
+                event.save();
+                res.status = 200;
+                res.send();
+            })
+            .catch(err=>next(err))            
         })
         .catch(err=>next(err))
     })
@@ -55,7 +60,7 @@ exports.getUser = (req,res)=>{
     }
 };
 
-exports.newUser = (req,res)=>{
+exports.newUser = (req,res,next)=>{
     let user = new User(req.body);
     user.save()
     .then(()=>{
@@ -106,50 +111,71 @@ exports.logout = (req,res)=>{
     })
 }
 
-exports.newGroup = (req,res)=>{
+exports.newGroup = (req,res, next)=>{
+    let UID = req.session.user
     let group = new Group();
     group.groupName = req.body.groupName;
     group.description = req.body.description;
     group.author = req.session.user;
     let emails = req.body.emails; //get emails from response
-    emails = emails.replace(/\s/g, ''); //remove spaces
-    const emailArray = emails.split(',') //split emails at each ,
-    let ids = [];
-    let success = [];
-    User.find().where('email').in(emailArray) //find users in email array
-    .then(users=>{
-        users.forEach(user => {
-            ids.push(user._id);
-            success.push(user.email);
-        });
-        let failed = emailArray.filter(x => !success.includes(x));
-         if(failed.length > 0){
-             res.status(400).send("There was an error adding some users")
-         } else {
-            group.accepted = ids;
-            User.updateMany(
-                { _id: { $in: ids } },
-                { $push: {groups: group._id} },
-                {multi: true}
-            ).then(()=>{
-                group.save()
-                res.status(200).send()
-            }).catch()
-         }
-     })
-     .catch(err=>next(err));
+    console.log    
+    User.findById(UID)
+    .then(user=>{
+        emails = emails.replace(/\s/g, ''); //remove spaces
+        emails = emails + ',' + user.email;
+        const emailArray = emails.split(',') //split emails at each ,
+        let uniqueEmails = [...new Set(emailArray)];
+        let ids = [];
+        let success = [];
+        User.find().where('email').in(uniqueEmails) //find users in email array
+        .then(users=>{
+            users.forEach(user => {
+                ids.push(user._id);
+                success.push(user.email);
+            });
+            let failed = uniqueEmails.filter(x => !success.includes(x));
+             if(failed.length > 0){
+                 res.status(400).send("There was an error adding some users")
+             } else {
+                group.accepted = ids;
+                User.updateMany(
+                    { _id: { $in: ids } },
+                    { $push: {groups: group._id} },
+                    {multi: true}
+                ).then(()=>{
+                    group.save()
+                    res.status(200).send()
+                }).catch()
+             }
+         })
+         .catch(err=>next(err));
+    })
+    .catch(err=>next(err))
 }
 
 exports.groupsAdmin = (req,res, next)=>{
     let userId = req.session.user;
     let userIdObj = mongoose.Types.ObjectId(userId)
     if(userId){
-        Group.find({ groups: { "$in" : [userIdObj]}}).where('author').equals(userIdObj)
+        Group.find().where('author').equals(userIdObj)
         .then(groups=>{
             res.send(groups);
         })
         .catch(err=>next(err))
     } else {
         res.status(400).send();
+    }
+}
+
+exports.getGroups = (req,res, next)=>{
+    let UID = req.session.user;
+    if(UID){
+        User.findById(UID).populate('groups')
+        .then(user=>{
+            res.send(user.groups)
+        })
+        .catch(err=>next(err))
+    } else {
+        res.status(400).send()
     }
 }

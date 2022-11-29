@@ -88,7 +88,7 @@ const Navbar = ({onClick}) => {
 
       <NavButton title="Menu" customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu />} />
       <div className="flex">
-        {auth ? 
+        {/* {auth ? 
           <>
           {notifs ? 
             <NavButton title="Notification" dotColor="rgb(254, 201, 15)" customFunc={() => handleClick('notification')} color={currentColor} icon={<RiNotification3Line />} />
@@ -98,7 +98,7 @@ const Navbar = ({onClick}) => {
           </>
         :
           <NavButton title="Login to see notifications" icon={<RiNotification3Line />} />
-        }
+        } */}
           {auth ? 
           <TooltipComponent content="Signin" position="BottomCenter">
             <div

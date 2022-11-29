@@ -19,4 +19,6 @@ router.post('/newGroup', controller.newGroup);
 
 router.get('/groupsAdmin', controller.groupsAdmin);
 
+router.get('/getGroups', controller.getGroups);
+
 module.exports = router;
