@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Group</title>
+
+    <style>
+
+        .Groups{
+            position: absolute;
+            left: 850px;
+            top: 250px;
+            width: 600px;
+            height: 600px;
+            border: 2px solid black;
+            background-image:linear-gradient(to left, royalblue , dodgerblue);
+            color: white;
+            font-size: 24px;
+        }
+        .Groups h1{
+            padding-left: 130px;
+            color: white;
+        }
+
+        #cancel{
+            font-size: 25px;
+            position: relative;
+            left: 450px;
+            bottom: 250px;
+        }
+        #submit,#submit2,#submit3,#submit4{
+            font-size: 17px;
+            position: relative;
+        }
+        #add{
+           position: relative;
+            left: 250px;
+            bottom: 400px;
+        }
+        #email,#addbutton{
+            font-size:25px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="Groups">
+
+    <h1>Group Members</h1>
+    <ul>
+        <li>User one </li> <button type="button" value="Delete" id="submit">Delete</button><br><br>
+        <li>User one </li> <button type="button" value="Delete" id="submit2">Delete</button><br><br>
+        <li>User one </li> <button type="button" value="Delete"id="submit3">Delete</button><br><br>
+        <li>User one </li> <button type="button" value="Delete"id="submit4">Delete</button><br><br>
+    </ul>
+    <input id="cancel" type="submit" value="Cancel">
+    <form id="add">
+        <label for="email">Member emails<br>(Please enter each followed by a ',') </label><br>
+        <input type="text" id="email" name="email" value="email"><br><br>
+        <input type="submit" value="Submit" id= "addbutton">
+    </form>
+</div>
+
+
+
+</body>
+</html>
