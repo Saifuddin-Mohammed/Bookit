@@ -57,7 +57,10 @@ const NewEvent = () => {
         return json;
       }
     }).then(data=>{
-      setAdmin(data)
+      if(data.length > 0){
+        setAdmin(data)
+      }
+      
     })
   },[])
 
