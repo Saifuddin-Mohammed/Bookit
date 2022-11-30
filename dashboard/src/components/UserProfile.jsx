@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
 import {FaUserAlt} from 'react-icons/fa';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 import { Button } from '.';
 import { userProfileData } from '../data/data';
@@ -33,12 +33,6 @@ const UserProfile = ({onClick}) => {
   function handleSubmit(){
     setIsClicked(initialState)
     fetch('/api/logout').then(res=>{
-      console.log('response')
-    if(res.ok){
-      loginRed()
-    } else {
-      console.log("error")
-    }
     onClick()
     })
   };
@@ -82,13 +76,15 @@ const UserProfile = ({onClick}) => {
       </div> */}
       <div className="mt-5">
         
-        <button
-          type="button"
+        <NavLink
+          key={'signout'}
           onClick={handleSubmit}
           className={`p-3 w-full hover:drop-shadow-xl bg-blue-600 color-white`}
         >
-          Signout
-        </button>
+          <span className='w-full'>
+            Signout
+          </span>
+        </NavLink>
       </div>
     </div>
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
+import { Link, NavLink } from 'react-router-dom';
 import { RiNotification3Line } from 'react-icons/ri';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
@@ -117,7 +118,9 @@ const Navbar = ({onClick}) => {
             </TooltipComponent>
           :
           <TooltipComponent content="Sign in" position="BottomCenter">
-          <a href='/login'>
+          <NavLink
+           to={`/login`}
+           key={'login'}>
             <div
               className="flex cursor-pointer p-1 h-6/8 bg-blue-500 hover:bg-blue-600 align-middle mt-2 w-24 text-center"
             >
@@ -127,7 +130,7 @@ const Navbar = ({onClick}) => {
                 </span>
               </p>
             </div>
-          </a>
+          </NavLink>
           </TooltipComponent>
           }
         {isClicked.notification && (<Notification />)}

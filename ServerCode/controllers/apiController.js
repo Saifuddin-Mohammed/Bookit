@@ -17,7 +17,7 @@ exports.index = (req,res)=>{
     }    
 };
 
-exports.newEvent = (req,res)=>{
+exports.newEvent = (req,res,next)=>{
     let r = req.body;
     let event = new Event(r);
     event.author = req.session.user;
@@ -123,8 +123,16 @@ exports.newGroup = (req,res, next)=>{
     .then(user=>{
         emails = emails.replace(/\s/g, ''); //remove spaces
         emails = emails + ',' + user.email;
-        const emailArray = emails.split(',') //split emails at each ,
-        let uniqueEmails = [...new Set(emailArray)];
+        let uniqueEmails = [];
+        if(emails.length > 0){
+            try{
+                const emailArray = emails.split(',') //split emails at each ,
+                uniqueEmails = [...new Set(emailArray)];
+            }catch{
+                let uniqueEmails = [];
+                uniqueEmails[0] = emails;
+            }             
+        }
         let ids = [];
         let success = [];
         User.find().where('email').in(uniqueEmails) //find users in email array

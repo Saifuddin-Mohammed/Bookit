@@ -8,6 +8,8 @@ import { useStateContext } from '../contexts/ContextProvider';
 import { useNavigate } from "react-router-dom";
 
 const NewEvent = () => {
+  const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(null);
   const { currentMode, activeMenu} = useStateContext();
   let navigate = useNavigate();
   function red(){
@@ -33,6 +35,31 @@ const NewEvent = () => {
       }
     })
   };
+
+  useEffect(()=>{
+    fetch('/api/user').then(res=>{
+      if(res.ok){
+        let json = res.json()
+        return json;
+      }
+    }).then(data=>{
+      if(data){
+        setUser(data)
+      }
+      console.log(data)
+    })
+  },[])
+
+  useEffect(()=>{
+    return fetch('/api/groupsAdmin').then(res=>{
+      if(res.ok){
+        let json = res.json()
+        return json;
+      }
+    }).then(data=>{
+      setAdmin(data)
+    })
+  },[])
 
   const getData = () =>{
     let temp = [];
@@ -89,105 +116,124 @@ const NewEvent = () => {
             <Navbar />
         </div>
 {/*  */}
+    
+    {admin && user ? 
     <div>      
+    <div className="flex flex-col items-center min-h-screen pt-6 justify-center sm:pt-0 bg-gray-50">
+      <div>
+        {/* <MdEventAvailable href='/' className='h-24 w-24'/>           */}
+        </div>
+          <div className="w-full px-6 py-4 mt-6 bg-gradient-to-r from-sky-500 to-indigo-500 shadow-md sm:max-w-md sm:rounded-lg h-6/8 overflow-visible ">
+          <div className="items-center justify-center flex text-white"><MdEventAvailable href='/' className='h-24 w-24'/></div>  
+          <p className='block text-sm font-bold black undefined text-center bold text-white'>Create new Event</p>
+          <br/>
+            <form onSubmit={handleSubmit}>
+              {/* Title */}
+              <div className="mt-4">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-white undefined"
+                >
+                  Title
+                </label>
+                  <div className="flex flex-col items-start">
+                    <input
+                      onChange={(e) => setTitle(e.target.value)}
+                      type="text"
+                      name="title"
+                      required="true"
+                      className="block w-full mt-1 border-gray-300 h-8 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    />
+                  </div>
+                </div>
+                {/* Priority */}
+                <div className="mt-4">
+                  <label
+                    htmlFor="group"
+                    className="block text-sm font-medium text-white undefined"
+                  >
+                    Priority
+                  </label>
+                  <div className="flex flex-col items-start">
+                    <Select 
+                    options={priorityOptions}
+                    required="true"
+                    onChange={(e)=>{
+                      setPriority(e.value)
+                    }}
+                    className="w-full" />
+                  </div>
+                </div>
+                {/* Start Date */}
+                  <div className="mt-4">
+                    <p className="text-white">Start time</p>
+                    <DateTimePicker 
+                    onChange={onStartChange}
+                    value={startValue}
+                    className='bg-white w-full'
+                    />
+                  </div>
+                  {/* End Date */}
+                  <div className="mt-4">
+                    <div className="mt-4">
+                    <p className="text-white">End time</p>
+                    <DateTimePicker 
+                    onChange={onEndChange}
+                    value={endValue}
+                    className='bg-white w-full'
+                    />
+                  </div>
+                    </div>
+                    {/* Group */}
+                <div className="mt-4">
+                  <label
+                    htmlFor="group"
+                    className="block text-sm font-medium text-white undefined"
+                  >
+                  Please select group
+                  </label>
+                  <div className="flex flex-col items-start">
+                  <AsyncSelect cacheOptions
+                  defaultOptions
+                  loadOptions={getData}
+                  required="true"
+                  onChange={(e)=>{
+                    setGroup(e.value)
+                  }}
+                  className="w-full" />
+                  </div>
+                </div>
+                {/* Submit button */}
+                        <div className="flex items-center justify-end mt-4">
+                            <button
+                                type="submit"
+                                className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-blue-700 border border-transparent rounded-md active:bg-gray-900 false"
+                            >
+                                Create Event
+                            </button>
+                        </div>
+                    </form>
+                    <div className="message">{message ? <p>{message}</p> : null}</div>
+                </div>
+            </div>
+        </div>
+    :
+    <div></div>
+    }
+    {user && !admin ?
+      <div>      
       <div className="flex flex-col items-center min-h-screen pt-6 justify-center sm:pt-0 bg-gray-50">
         <div>
           {/* <MdEventAvailable href='/' className='h-24 w-24'/>           */}
           </div>
             <div className="w-full px-6 py-4 mt-6 bg-gradient-to-r from-sky-500 to-indigo-500 shadow-md sm:max-w-md sm:rounded-lg h-6/8 overflow-visible ">
-            <div className="items-center justify-center flex text-white"><MdEventAvailable href='/' className='h-24 w-24'/></div>  
-            <p className='block text-sm font-bold black undefined text-center bold text-white'>Create new Event</p>
-            <br/>
-              <form onSubmit={handleSubmit}>
-                {/* Title */}
-                <div className="mt-4">
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-white undefined"
-                  >
-                    Title
-                  </label>
-                    <div className="flex flex-col items-start">
-                      <input
-                        onChange={(e) => setTitle(e.target.value)}
-                        type="text"
-                        name="title"
-                        required="true"
-                        className="block w-full mt-1 border-gray-300 h-8 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                      />
-                    </div>
-                  </div>
-                  {/* Priority */}
-                  <div className="mt-4">
-                    <label
-                      htmlFor="group"
-                      className="block text-sm font-medium text-white undefined"
-                    >
-                      Priority
-                    </label>
-                    <div className="flex flex-col items-start">
-                      <Select 
-                      options={priorityOptions}
-                      required="true"
-                      onChange={(e)=>{
-                        setPriority(e.value)
-                      }}
-                      className="w-full" />
-                    </div>
-                  </div>
-                  {/* Start Date */}
-                    <div className="mt-4">
-                      <p className="text-white">Start time</p>
-                      <DateTimePicker 
-                      onChange={onStartChange}
-                      value={startValue}
-                      className='bg-white w-full'
-                      />
-                    </div>
-                    {/* End Date */}
-                    <div className="mt-4">
-                      <div className="mt-4">
-                      <p className="text-white">End time</p>
-                      <DateTimePicker 
-                      onChange={onEndChange}
-                      value={endValue}
-                      className='bg-white w-full'
-                      />
-                    </div>
-                      </div>
-                      {/* Group */}
-                  <div className="mt-4">
-                    <label
-                      htmlFor="group"
-                      className="block text-sm font-medium text-white undefined"
-                    >
-                    Please select group
-                    </label>
-                    <div className="flex flex-col items-start">
-                    <AsyncSelect cacheOptions
-                    defaultOptions
-                    loadOptions={getData}
-                    required="true"
-                    onChange={(e)=>{
-                      setGroup(e.value)
-                    }}
-                    className="w-full" />
-                    </div>
-                  </div>
-                  {/* Submit button */}
-                          <div className="flex items-center justify-end mt-4">
-                              <button
-                                  type="submit"
-                                  className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-blue-700 border border-transparent rounded-md active:bg-gray-900 false"
-                              >
-                                  Create Event
-                              </button>
-                          </div>
-                      </form>
-                      <div className="message">{message ? <p>{message}</p> : null}</div>
-                  </div>
-              </div>
+              <p className='text-white'>You do not own any groups</p>
           </div>
+          </div>
+          </div>
+    : 
+    <div>Please login to see this page</div>
+    }
           {/* footer */}
           <Footer />
           </div>
