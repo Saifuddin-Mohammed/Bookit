@@ -7,7 +7,7 @@ https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 navigate in terminal to /Bookit
 
-cd /Server
+cd /ServerCode
 
 npm install
 
