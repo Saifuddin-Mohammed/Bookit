@@ -1,0 +1,24 @@
+download instructions:
+Download from github:
+
+Get Node and NPM (if you do not already have them)
+Instructions:
+https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+
+navigate in terminal to /Bookit
+
+cd /Server
+
+npm install
+
+if on windows: npm remove eslint-config-react-app
+
+node app
+
+in new terminal:
+
+cd /dashboard
+
+npm install
+
+npm start
