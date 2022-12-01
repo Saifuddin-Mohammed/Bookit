@@ -40,7 +40,7 @@ const Groups = () => {
     const { currentMode, activeMenu} = useStateContext();
     let navigate = useNavigate();
     function handleClick(calevent){
-        navigate(`/events/${calevent._id}`)
+        navigate(`/event/${calevent._id}`)
     }
     const [initialState, setInitialState] = useState();
     useEffect(()=>{

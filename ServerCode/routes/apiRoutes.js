@@ -21,4 +21,14 @@ router.get('/groupsAdmin', controller.groupsAdmin);
 
 router.get('/getGroups', controller.getGroups);
 
+router.get('/getGroup/:id', controller.getGroup);
+
+router.get('/deleteGroup/:id', controller.deleteGroup);
+
+router.get('/event/:id', controller.getEvent);
+
+router.post('/addUser', controller.addUser);
+
+router.post('/deleteUser', controller.deleteUser);
+
 module.exports = router;

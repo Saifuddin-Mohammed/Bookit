@@ -7,4 +7,5 @@ export { default as Login } from './Login';
 export { default as Signup } from './Signup';
 export { default as Inner } from './Inner';
 export { default as Schedulecopy } from './Schedulecopy';
- 
+export { default as EditGroup } from './EditGroup';
+export { default as ViewGroup } from './ViewGroup';

@@ -33,7 +33,8 @@ const UserProfile = ({onClick}) => {
   function handleSubmit(){
     setIsClicked(initialState)
     fetch('/api/logout').then(res=>{
-    onClick()
+      loginRed()
+      onClick()
     })
   };
   return (

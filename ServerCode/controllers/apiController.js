@@ -187,3 +187,106 @@ exports.getGroups = (req,res, next)=>{
         res.status(400).send()
     }
 }
+
+exports.getGroup = (req,res,next)=>{
+    let id = req.params.id;
+    Group.findById(id).populate('accepted')
+    .then(group=>{
+        res.send(group)
+    })
+    .catch(err=>{next(err)})
+}
+
+exports.deleteGroup = (req,res,next) =>{
+    let id = req.params.id;
+    console.log(id)
+    let users = [];
+    let appts = [];
+    Group.findById(id)
+    .then(group=>{
+        users = group.accepted;
+        appts = group.appointments;
+        User.updateMany(
+            { _id: { $in: users } },
+            { $pull: {groups: id}, $pullAll: {appointments: appts} },
+            {multi: true}
+        )
+        .then(()=>{
+            console.log('deleteing events')
+            Event.deleteMany(
+                { _id: {$in : appts}}
+            )
+        })
+        .then(()=>{
+            Group.findByIdAndDelete(id)
+            .then(()=>{
+                res.status(200).send()
+            })
+        })
+    })
+    .catch()
+}
+
+exports.getEvent = (req,res,next)=>{
+    let id = req.params.id;
+    Event.findById(id)
+    .then(event=>{
+        res.send(event)
+    })
+    .catch(err=>{next(err)})
+}
+
+exports.addUser = (req,res,next)=>{
+    let groupId= req.body.group;
+    let emails = req.body.emails;
+    let uniqueEmails = [];
+    console.log(emails.indexOf(','))
+    console.log(emails.indexOf(' '))
+    let UserIDs = [];
+    
+    if(emails.indexOf(',') > -1 && emails.indexOf(' ') > -1){
+        emails = emails.replace(/\s/g, ''); //remove spaces   
+        const emailArray = emails.split(',') //split emails at each ,
+        uniqueEmails = [...new Set(emailArray)];
+    } else{
+        uniqueEmails = [];
+        uniqueEmails[0] = emails;
+    }
+    User.find().where('email').in(uniqueEmails)
+    .then(users =>{
+        UserIDs = users
+        if(UserIDs.lenght > 1){
+            Group.findByIdAndUpdate(groupId, {$push: {accepted: {$each: UserIDs}}})
+            .then(suc=>{
+                if(suc){
+                    res.status(200).send()
+                } else {
+                    res.status(400).send()
+                }
+                
+            })
+        } else {
+            Group.findByIdAndUpdate(groupId, {$push:{accepted: UserIDs}})
+            .then(suc=>{
+                if(suc){
+                    res.status(200).send()
+                } else {
+                    res.status(400).send()
+                }
+                
+            })
+        }
+    })
+};
+
+exports.deleteUser = (req,res,next)=>{
+    let UID = req.body.user;
+    let groupID = req.body.group;
+    console.log(UID)
+    console.log(groupID)
+    Group.findByIdAndUpdate(groupID, {$pull: {accepted: UID}})
+    .then(()=>{
+        User.findByIdAndUpdate(UID, {$pull: {groups: groupID}})
+        .then(res.status(200).send())
+    })
+};

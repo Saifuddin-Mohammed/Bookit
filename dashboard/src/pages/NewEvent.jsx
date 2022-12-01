@@ -25,7 +25,8 @@ const NewEvent = () => {
         start: startValue,
         end: endValue,
         group: group,
-        priority: priority
+        priority: priority,
+        description: description
       })
     }).then(res=>{
       if(res.status !== 200){
@@ -59,8 +60,7 @@ const NewEvent = () => {
     }).then(data=>{
       if(data.length > 0){
         setAdmin(data)
-      }
-      
+      }      
     })
   },[])
 
@@ -88,6 +88,7 @@ const NewEvent = () => {
   const [priority, setPriority] = useState("low");
   const [startValue, onStartChange] = useState(new Date());
   const [endValue, onEndChange] = useState(new Date());
+  const [description, setDescription] = useState("");
   const priorityOptions = [
     {value: 'low', label: 'Low' },
     {value: 'med', label: 'Medium' },
@@ -123,9 +124,6 @@ const NewEvent = () => {
     {admin && user ? 
     <div>      
     <div className="flex flex-col items-center min-h-screen pt-6 justify-center sm:pt-0 bg-gray-50">
-      <div>
-        {/* <MdEventAvailable href='/' className='h-24 w-24'/>           */}
-        </div>
           <div className="w-full px-6 py-4 mt-6 bg-gradient-to-r from-sky-500 to-indigo-500 shadow-md sm:max-w-md sm:rounded-lg h-6/8 overflow-visible ">
           <div className="items-center justify-center flex text-white"><MdEventAvailable href='/' className='h-24 w-24'/></div>  
           <p className='block text-sm font-bold black undefined text-center bold text-white'>Create new Event</p>

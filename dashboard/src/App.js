@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Navbar, Footer, Sidebar} from './components';
-import { Schedule, NewEvent, Event, Groups, Login, Signup, Schedulecopy} from './pages';
+import { Schedule, NewEvent, Event, Groups, Login, Signup, Schedulecopy, EditGroup,CreateGroup, ViewGroup} from './pages';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
-import CreateGroup from './pages/CreateGroup';
+
 
 const App = () => {
   const { currentMode, activeMenu} = useStateContext();
@@ -54,6 +54,8 @@ const App = () => {
                 {/* Groups */}
                 <Route path="/groups" element={<Groups />} /> {/* Display user groups */}
                 <Route path="/newGroup" element={<CreateGroup />} /> {/* Create a new group */}
+                <Route path="/editGroup/:id" element={<EditGroup />} /> {/* Create a new group */}
+                <Route path="/groups/:id" element={<ViewGroup />} /> {/* Create a new group */}
               </Routes>
             </div>
              {/*<Footer />
